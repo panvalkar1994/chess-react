@@ -34,4 +34,4 @@ npm run dev
 
 ## disclaimer
 
-I am downloaded the images of the chess pieces from the internet. I do not own the images. I am using them for educational purposes only.
+I have downloaded the images of the chess pieces from the internet. I do not own the images. I am using them for educational purposes only.
