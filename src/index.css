@@ -1,0 +1,7 @@
+/* define board theme variables */
+:root {
+    /* light color */
+    --light-square:rgb(224, 223, 221);
+    /* dark color */
+    --dark-square:rgb(103, 102, 101);
+}
