@@ -3,12 +3,7 @@ import { useState } from "react";
 import Board from "./components/board";
 import { Piece, Bishop, King, Knight, Pawn, Queen, Rook, PieceColor, PieceType } from "./models";
 
-
-
-
-
 export default function App() {
-
   const initialPiecesSetup = {
     pieces: {
       A1: new Rook("rook", PieceColor.w),
@@ -45,11 +40,10 @@ export default function App() {
       H7: new Pawn("pawn", PieceColor.b),
     },
   };
-  const [gameState, setGameState] = useState<{pieces: { [key: string]: Piece }}>(initialPiecesSetup);
+  const [gameState, setGameState] = useState<{ pieces: { [key: string]: Piece } }>(initialPiecesSetup);
 
   const [history, setHistory] = useState<Array<{ pieces: { [key: string]: Piece } }>>([initialPiecesSetup]);
   const [isWhiteTurn, setIsWhiteTurn] = useState(true);
-
 
   function handleMove(piece: Piece, from: string, to: string): void {
     console.log(`Moving ${piece} from ${from} to ${to}`);
@@ -71,33 +65,41 @@ export default function App() {
     }
     newState.pieces[to] = piece;
     delete newState.pieces[from];
-    if(newState.pieces[to].getType() === PieceType.PAWN && (piece as Pawn).isPromotion(to)) {
-      const newPiece = window.prompt("Promote to (Queen, Rook, Bishop, Knight):");
-      if (newPiece) {
-        switch (newPiece.toLowerCase()) {
-          case "queen":
-            newState.pieces[to] = new Queen("queen", piece.getColor());
-            break;
-          case "rook":
-            newState.pieces[to] = new Rook("rook", piece.getColor());
-            break;
-          case "bishop":
-            newState.pieces[to] = new Bishop("bishop", piece.getColor());
-            break;
-          case "knight":
-            newState.pieces[to] = new Knight("knight", piece.getColor());
-            break;
-          default:
-            alert("Invalid promotion");
-            return;
+    if (newState.pieces[to].getType() === PieceType.PAWN && (piece as Pawn).isPromotion(to)) {
+      let correctPromotion = false;
+      while (!correctPromotion) {
+        const newPiece = window.prompt("Promote to (Queen, Rook, Bishop, Knight):");
+        if (newPiece) {
+          switch (newPiece.toLowerCase()) {
+            case "queen":
+              newState.pieces[to] = new Queen("queen", piece.getColor());
+              correctPromotion = true;
+              break;
+            case "rook":
+              newState.pieces[to] = new Rook("rook", piece.getColor());
+              correctPromotion = true;
+              break;
+            case "bishop":
+              newState.pieces[to] = new Bishop("bishop", piece.getColor());
+              correctPromotion = true;
+              break;
+            case "knight":
+              newState.pieces[to] = new Knight("knight", piece.getColor());
+              correctPromotion = true;
+              break;
+            default:
+              alert("Invalid promotion");
+              console.error("Invalid promotion");
+              break;
+          }
         }
       }
     }
     setGameState(newState);
-    console.log('newState', newState);
+    console.log("newState", newState);
 
     setHistory([...history, newState]);
-    setIsWhiteTurn(!isWhiteTurn);  
+    setIsWhiteTurn(!isWhiteTurn);
   }
 
   function handleReset() {
@@ -105,8 +107,6 @@ export default function App() {
     setHistory([initialPiecesSetup]);
     setIsWhiteTurn(true);
   }
-
-  
 
   return (
     <div className="app">
@@ -126,21 +126,3 @@ export default function App() {
     </div>
   );
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
