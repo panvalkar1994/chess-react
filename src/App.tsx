@@ -1,7 +1,7 @@
 import "./App.css";
 import { useState } from "react";
 import Board from "./components/board";
-import { Piece, Bishop, King, Knight, Pawn, Queen, Rook, PieceColor } from "./models";
+import { Piece, Bishop, King, Knight, Pawn, Queen, Rook, PieceColor, PieceType } from "./models";
 
 
 
@@ -71,6 +71,28 @@ export default function App() {
     }
     newState.pieces[to] = piece;
     delete newState.pieces[from];
+    if(newState.pieces[to].getType() === PieceType.PAWN && (piece as Pawn).isPromotion(to)) {
+      const newPiece = window.prompt("Promote to (Queen, Rook, Bishop, Knight):");
+      if (newPiece) {
+        switch (newPiece.toLowerCase()) {
+          case "queen":
+            newState.pieces[to] = new Queen("queen", piece.getColor());
+            break;
+          case "rook":
+            newState.pieces[to] = new Rook("rook", piece.getColor());
+            break;
+          case "bishop":
+            newState.pieces[to] = new Bishop("bishop", piece.getColor());
+            break;
+          case "knight":
+            newState.pieces[to] = new Knight("knight", piece.getColor());
+            break;
+          default:
+            alert("Invalid promotion");
+            return;
+        }
+      }
+    }
     setGameState(newState);
     console.log('newState', newState);
 
@@ -81,6 +103,7 @@ export default function App() {
   function handleReset() {
     setGameState(initialPiecesSetup);
     setHistory([initialPiecesSetup]);
+    setIsWhiteTurn(true);
   }
 
   

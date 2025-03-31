@@ -1,8 +1,15 @@
 import { GetRowCol } from "../utils/board";
-import { Piece, PieceColor, PieceImages } from "./piece";
+import { Piece, PieceColor, PieceImages, PieceType,  } from "./piece";
 
 export class Pawn implements Piece {
-  constructor(public name: string, public color: PieceColor) {}
+  pieceType: PieceType;
+  constructor(public name: string, public color: PieceColor) {
+    this.pieceType = PieceType.PAWN;
+  }
+
+  getType(): PieceType {
+    return this.pieceType;
+  }
 
   getImage(): string {
     return PieceImages.get(`${this.name}-${this.color}`) || "";
@@ -47,7 +54,19 @@ export class Pawn implements Piece {
       }
       return false;
     }
-    return true;
+    return false; // Invalid move
+  }
+
+  isPromotion(to: string): boolean {
+    const { row: toRow } = GetRowCol(to);
+    if (this.color === PieceColor.w && toRow === 8) {
+      console.log("Pawn promotion for white");
+      return true;
+    } else if (this.color === PieceColor.b && toRow === 1) {
+      console.log("Pawn promotion for black");
+      return true;
+    }
+    return false;
   }
 }
 

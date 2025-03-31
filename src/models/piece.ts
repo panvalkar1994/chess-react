@@ -31,20 +31,20 @@ export enum PieceColor {
   b = "black",
 }
 
-// enum PieceType {
-//   king = "king",
-//   queen = "queen",
-//   rook = "rook",
-//   bishop = "bishop",
-//   knight = "knight",
-//   pawn = "pawn",
-// }
+export enum PieceType {
+  KING = "king",
+  QUEEN = "queen",
+  ROOK = "rook",
+  BISHOP = "bishop",
+  KNIGHT = "knight",
+  PAWN = "pawn",
+}
 
-export type PieceType = "king" | "queen" | "rook" | "bishop" | "knight" | "pawn";
 
 
 export interface Piece {
   getImage(): string;
   validateMove(gameState: { pieces: { [key: string]: Piece } }, from: string, to: string): boolean;
   getColor(): PieceColor;
+  getType(): PieceType;
 }

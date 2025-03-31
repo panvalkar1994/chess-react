@@ -1,8 +1,15 @@
 import { GetRowCol } from "../utils/board";
-import { Piece, PieceColor, PieceImages } from "./piece";
+import { Piece, PieceColor, PieceImages, PieceType } from "./piece";
 
 export  class Bishop implements Piece {
-  constructor(public name: string, public color: PieceColor) {}
+  pieceType: PieceType;
+  constructor(public name: string, public color: PieceColor) {
+    this.pieceType = PieceType.BISHOP;
+  }
+
+  getType(): PieceType {
+    return this.pieceType;
+  }
 
   getColor(): PieceColor {
     return this.color;

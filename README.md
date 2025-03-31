@@ -18,7 +18,7 @@ npm run dev
 - [ ] Check and Checkmate
 - [ ] Castling
 - [ ] En passant
-- [ ] Promotion
+- [x] Promotion
 - [ ] Undo
 - [ ] Save game
 - [x] Reset/ New game

@@ -1,8 +1,15 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
-import { Piece, PieceColor, PieceImages } from "./piece";
+import { Piece, PieceColor, PieceImages, PieceType } from "./piece";
 
 export class Knight implements Piece {
-  constructor(public name: string, public color: PieceColor) {}
+  pieceType: PieceType;
+  constructor(public name: string, public color: PieceColor) {
+    this.pieceType = PieceType.KNIGHT;
+  }
+
+  getType(): PieceType {
+    return this.pieceType;
+  }
 
   getImage(): string {
     return PieceImages.get(`${this.name}-${this.color}`) || "";
